@@ -1,79 +1,83 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import {VictoryPie, VictoryBar} from 'victory-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {AccountBox, AddNewBox} from './components';
+import {Box} from '../../common/components';
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#5140BA',
-  },
-  header: {
-    flex: 1,
-    backgroundColor: '#5140BA',
-    alignItems: 'center',
-  },
-  dates: {
-    alignSelf: 'stretch',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  text: {
-    color: 'white',
-  },
-  content: {
-    flex: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     backgroundColor: 'white',
+    padding: 20,
+  },
+  mainAccountTitle: {
+    color: '#B7B7B7',
+  },
+  accountName: {
+    fontSize: 18,
+    marginTop: 5,
+  },
+  balance: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  percentage: {
+    color: 'green',
+  },
+  lastUpdated: {
+    color: '#b7b7b7',
+    fontSize: 10,
+    marginTop: 5,
+  },
+  accounts: {
+    marginTop: 20,
+  },
+  accountsTitle: {
+    marginBottom: 10,
+  },
+  accountsList: {
+    padding: 5,
   },
 });
 
 export function Home() {
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.header}>
-        <Text
-          style={{
-            color: 'white',
-          }}>
-          Portifolio
-        </Text>
-        <View style={styles.dates}>
-          <Text style={styles.text}>$1000.00</Text>
-          <Text style={styles.text}>$1000.00</Text>
-        </View>
+    <>
+      <SafeAreaView
+        style={{
+          flex: 0,
+          backgroundColor: 'white',
+        }}
+      />
+      <View style={styles.wrapper}>
+        <Box>
+          <Text style={styles.mainAccountTitle}>Main Account</Text>
+          <Text style={styles.accountName}>Secret Offshore bank</Text>
+          <View style={styles.balance}>
+            <Text>$100,000,000.00</Text>
+            <Text style={styles.percentage}>+1,523%</Text>
+          </View>
+          <Text style={styles.lastUpdated}>last updated 5 seconds ago</Text>
+        </Box>
 
-        <View>
-          <VictoryPie
-            colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
-            style={{
-              labels: {
-                fill: 'white',
-              },
-            }}
-            animate={{
-              duration: 2000,
-            }}
-            data={[
-              {x: 'Cats', y: 35},
-              {x: 'Dogs', y: 40},
-              {x: 'Birds', y: 55},
-            ]}
-            height={300}
-          />
+        <View style={styles.accounts}>
+          <Text style={styles.accountsTitle}>Accounts</Text>
+          <ScrollView
+            horizontal={true}
+            style={styles.accountsList}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}>
+            <AccountBox
+              name="Binance Account"
+              amount={'$500,000.00'}
+              previousAmount={'$500,000.00'}
+            />
+            <AddNewBox />
+          </ScrollView>
         </View>
       </View>
-      <View style={styles.content}>
-        <VictoryBar
-          data={[
-            {x: 'Cats', y: 35},
-            {x: 'Dogs', y: 40},
-            {x: 'Birds', y: 55},
-          ]}
-          labels={({datum}) => `${datum.y}`}
-        />
-      </View>
-    </View>
+    </>
   );
 }

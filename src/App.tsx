@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import {Home} from './routes';
+import {Home, Report} from './routes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -9,12 +9,6 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <>
-      <SafeAreaView
-        style={{
-          flex: 0,
-          backgroundColor: '#5140BA',
-        }}
-      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -25,6 +19,13 @@ const App = () => {
             <Stack.Screen
               name="Home"
               component={Home}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Report"
+              component={Report}
               options={{
                 headerShown: false,
               }}
