@@ -12,8 +12,9 @@ const App = () => {
       <SafeAreaView
         style={{
           flex: 1,
+          backgroundColor: '#202020',
         }}>
-        <StatusBar />
+        <StatusBar barStyle={'light-content'} />
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -36,7 +37,7 @@ const App = () => {
       <SafeAreaView
         style={{
           flex: 0,
-          backgroundColor: 'white',
+          backgroundColor: '#202020',
         }}
       />
     </>

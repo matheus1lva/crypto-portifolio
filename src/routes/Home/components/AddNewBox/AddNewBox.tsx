@@ -8,6 +8,7 @@ import {StyleSheet, Text} from 'react-native';
 const styles = StyleSheet.create({
   addNew: {
     marginRight: 10,
+    color: 'white',
   },
 });
 
@@ -23,7 +24,7 @@ export function AddNewBox() {
   return (
     <AddNewBoxWrapper>
       <Text style={styles.addNew}>Add Account</Text>
-      <FontAwesomeIcon icon={faPlus} size={12} />
+      <FontAwesomeIcon icon={faPlus} size={12} color={'white'} />
     </AddNewBoxWrapper>
   );
 }
