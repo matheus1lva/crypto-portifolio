@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
   },
   icons: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconsWrapper: {
+    marginRight: 5,
   },
 });
 
@@ -42,7 +47,7 @@ export function AccountBox(props: AccountBoxProps) {
     <Box onClick={onClick}>
       <AccountBoxWrapper>
         <View style={styles.icons}>
-          {icon}
+          <View style={styles.iconsWrapper}>{icon}</View>
           <Text style={{color: 'white'}}>{name}</Text>
         </View>
         <View style={styles.individualBalance}>
