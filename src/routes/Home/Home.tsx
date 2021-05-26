@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, FlatList} from 'react-native';
+import {Text, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AccountBox} from './components';
@@ -8,7 +8,7 @@ import {faPlus, faEye} from '@fortawesome/free-solid-svg-icons';
 import {Box} from '../../common/components';
 import {BinanceLogo} from '../../common/components/Logos';
 import {TimescaleSelector} from '../../common/components/TimescaleSelector';
-import {AssetHeaderList, AssetRender} from './components';
+import {AssetsTable} from './components/AssetsTable';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -70,6 +70,27 @@ const styles = StyleSheet.create({
 });
 
 export function Home() {
+  const data = [
+    {
+      asset: 'BTC',
+      price: '$7,232.21',
+      holdings: '132,000.00',
+      pnl: '30000%',
+    },
+    {
+      asset: 'ETH',
+      price: '$7,232.21',
+      holdings: '132,000.00',
+      pnl: '30000%',
+    },
+    {
+      asset: 'LTC',
+      price: '$7,232.21',
+      holdings: '132,000.00',
+      pnl: '30000%',
+    },
+  ];
+
   return (
     <>
       <SafeAreaView
@@ -133,32 +154,9 @@ export function Home() {
             <Text style={styles.totalBalance}>$100,000,000.00</Text>
             <Text style={styles.percentage}>+1,523%</Text>
           </Box>
-          <FlatList
-            data={[
-              {
-                asset: 'BTC',
-                price: '$7,232.21',
-                holdings: '132,000.00',
-                pnl: '30000%',
-              },
-              {
-                asset: 'ETH',
-                price: '$7,232.21',
-                holdings: '132,000.00',
-                pnl: '30000%',
-              },
-              {
-                asset: 'LTC',
-                price: '$7,232.21',
-                holdings: '132,000.00',
-                pnl: '30000%',
-              },
-            ]}
-            renderItem={AssetRender}
-            ListHeaderComponent={AssetHeaderList}
-            keyExtractor={item => item.asset}
-          />
         </View>
+
+        <AssetsTable data={data} />
       </View>
     </>
   );
