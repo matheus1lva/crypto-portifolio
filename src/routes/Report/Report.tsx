@@ -32,7 +32,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Report() {
+export interface ReportProps {
+  navigation: any;
+  route: any;
+}
+
+export function Report(props: ReportProps) {
+  const {route} = props;
+  const account = route?.params?.account ?? null;
+
+  if (!account) {
+    return null;
+  }
+
+  console.log(route);
+
   return (
     <>
       <SafeAreaView

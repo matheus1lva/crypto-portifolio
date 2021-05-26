@@ -69,7 +69,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Home() {
+export interface HomeProps {
+  navigation: any;
+}
+
+export function Home(props: HomeProps) {
+  const {navigation} = props;
+
   const data = [
     {
       asset: 'BTC',
@@ -124,7 +130,9 @@ export function Home() {
               icon={<BinanceLogo />}
               amount={'$500,000.00'}
               onClick={() => {
-                console.log('test 123');
+                navigation.navigate('Report', {
+                  account: data,
+                });
               }}
             />
             <AccountBox
