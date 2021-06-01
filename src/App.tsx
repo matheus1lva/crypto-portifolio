@@ -28,7 +28,10 @@ const App = () => {
               name="Report"
               component={Report}
               options={{
-                headerShown: false,
+                headerStyle: {
+                  backgroundColor: '#202020',
+                },
+                headerTintColor: '#fff',
               }}
             />
           </Stack.Navigator>
