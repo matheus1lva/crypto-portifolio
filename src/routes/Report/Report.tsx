@@ -9,15 +9,11 @@ import {
   VictoryTheme,
 } from 'victory-native';
 import {Box} from '../../common/components';
+import {Body} from '../../common/components/Body';
 import {TimescaleSelector} from '../../common/components/TimescaleSelector';
 import {AssetsTable} from '../Home/components/AssetsTable';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: '#202020',
-    padding: 20,
-  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -88,7 +84,7 @@ export function Report(props: ReportProps) {
   ];
 
   return (
-    <View style={styles.wrapper}>
+    <Body>
       <View style={styles.header}>
         <View>
           <Box>
@@ -153,6 +149,6 @@ export function Report(props: ReportProps) {
       </View>
 
       <AssetsTable data={data} />
-    </View>
+    </Body>
   );
 }

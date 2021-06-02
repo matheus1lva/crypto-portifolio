@@ -4,6 +4,7 @@ import {SafeAreaView, StatusBar} from 'react-native';
 import {Home, Report} from './routes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {RecoilRoot} from 'recoil';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -15,27 +16,29 @@ const App = () => {
           backgroundColor: '#202020',
         }}>
         <StatusBar barStyle={'light-content'} />
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Report"
-              component={Report}
-              options={{
-                headerStyle: {
-                  backgroundColor: '#202020',
-                },
-                headerTintColor: '#fff',
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <RecoilRoot>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Report"
+                component={Report}
+                options={{
+                  headerStyle: {
+                    backgroundColor: '#202020',
+                  },
+                  headerTintColor: '#fff',
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </RecoilRoot>
       </SafeAreaView>
       <SafeAreaView
         style={{
