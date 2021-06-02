@@ -9,17 +9,6 @@ import {Body} from '../../common/components/Body';
 import {AccountsCarrosel} from './components/AccountsCarrosel';
 
 const styles = StyleSheet.create({
-  accountName: {
-    fontSize: 18,
-    marginTop: 5,
-  },
-
-  lastUpdated: {
-    color: '#b7b7b7',
-    fontSize: 10,
-    marginTop: 5,
-  },
-
   pnlPerTime: {
     marginTop: 10,
     marginBottom: 10,

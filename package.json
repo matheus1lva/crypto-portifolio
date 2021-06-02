@@ -46,7 +46,8 @@
     "recoil": "^0.3.1",
     "rn-crypto-icons": "^1.0.0",
     "styled-components": "^5.3.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "universal-binance-api": "^1.0.1"
   },
   "resolutions": {
     "@types/react": "^17"

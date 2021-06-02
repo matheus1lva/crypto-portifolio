@@ -24,8 +24,6 @@ export interface AssetsTableProps {
 export function AssetsTable(props: AssetsTableProps) {
   const {data} = props;
 
-  console.log(data);
-
   return (
     <ScrollView>
       <Grid>
