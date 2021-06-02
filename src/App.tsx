@@ -4,10 +4,13 @@ import {SafeAreaView, StatusBar} from 'react-native';
 import {Home, Report} from './routes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {RecoilRoot} from 'recoil';
+import {RecoilRoot, useRecoilState} from 'recoil';
+import {currentAccountState} from './atoms';
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [currentAccount] = useRecoilState(currentAccountState);
+
   return (
     <>
       <SafeAreaView
@@ -34,6 +37,8 @@ const App = () => {
                     backgroundColor: '#202020',
                   },
                   headerTintColor: '#fff',
+                  // @ts-ignore
+                  title: currentAccount.accountProvider,
                 }}
               />
             </Stack.Navigator>

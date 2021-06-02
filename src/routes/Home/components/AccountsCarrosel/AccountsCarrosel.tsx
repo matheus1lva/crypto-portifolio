@@ -5,6 +5,8 @@ import {AccountBox} from '../AccountBox';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus, faEye} from '@fortawesome/free-solid-svg-icons';
 import {BinanceLogo} from '../../../../common/components/Logos';
+import {useRecoilState} from 'recoil';
+import {currentAccountState} from '../../../../atoms';
 
 const styles = StyleSheet.create({
   section: {
@@ -32,11 +34,12 @@ const styles = StyleSheet.create({
 
 export interface AccountsCarroselProps {
   navigation: any;
-  data: any[];
+  data: object;
 }
 
 export function AccountsCarrosel(props: AccountsCarroselProps) {
   const {navigation, data} = props;
+  const [, setCurrentAccount] = useRecoilState(currentAccountState);
 
   return (
     <View style={styles.section}>
@@ -62,9 +65,8 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
           icon={<BinanceLogo />}
           amount={'$500,000.00'}
           onClick={() => {
-            navigation.navigate('Report', {
-              account: data,
-            });
+            navigation.navigate('Report');
+            setCurrentAccount(data);
           }}
         />
         <AccountBox

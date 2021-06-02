@@ -31,26 +31,29 @@ export interface HomeProps {
 export function Home(props: HomeProps) {
   const {navigation} = props;
 
-  const data = [
-    {
-      asset: 'BTC',
-      price: '$7,232.21',
-      holdings: '132,000.00',
-      pnl: '30000%',
-    },
-    {
-      asset: 'ETH',
-      price: '$7,232.21',
-      holdings: '132,000.00',
-      pnl: '30000%',
-    },
-    {
-      asset: 'LTC',
-      price: '$7,232.21',
-      holdings: '132,000.00',
-      pnl: '30000%',
-    },
-  ];
+  const data = {
+    accountProvider: 'binance',
+    balances: [
+      {
+        asset: 'BTC',
+        price: '$7,232.21',
+        holdings: '132,000.00',
+        pnl: '30000%',
+      },
+      {
+        asset: 'ETH',
+        price: '$7,232.21',
+        holdings: '132,000.00',
+        pnl: '30000%',
+      },
+      {
+        asset: 'LTC',
+        price: '$7,232.21',
+        holdings: '132,000.00',
+        pnl: '30000%',
+      },
+    ],
+  };
 
   return (
     <Body>
@@ -62,7 +65,7 @@ export function Home(props: HomeProps) {
         <TimescaleSelector />
         <CurrentBalanceHeader styles={styles.pnlPerTime} />
       </View>
-      <AssetsTable data={data} />
+      <AssetsTable data={data.balances} />
     </Body>
   );
 }
