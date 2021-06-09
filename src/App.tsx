@@ -4,7 +4,7 @@ import {SafeAreaView, StatusBar} from 'react-native';
 import {Home, Report} from './routes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {RecoilRoot, useRecoilState} from 'recoil';
+import {useRecoilState} from 'recoil';
 import {currentAccountState} from './atoms';
 const Stack = createStackNavigator();
 
@@ -19,31 +19,29 @@ const App = () => {
           backgroundColor: '#202020',
         }}>
         <StatusBar barStyle={'light-content'} />
-        <RecoilRoot>
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="Report"
-                component={Report}
-                options={{
-                  headerStyle: {
-                    backgroundColor: '#202020',
-                  },
-                  headerTintColor: '#fff',
-                  // @ts-ignore
-                  title: currentAccount.accountProvider,
-                }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </RecoilRoot>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Report"
+              component={Report}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#202020',
+                },
+                headerTintColor: '#fff',
+                // @ts-ignore
+                title: currentAccount.accountProvider,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </SafeAreaView>
       <SafeAreaView
         style={{

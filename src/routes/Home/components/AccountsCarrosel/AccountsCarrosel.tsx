@@ -7,6 +7,7 @@ import {faPlus, faEye} from '@fortawesome/free-solid-svg-icons';
 import {BinanceLogo} from '../../../../common/components/Logos';
 import {useRecoilState} from 'recoil';
 import {currentAccountState} from '../../../../atoms';
+import {useNavigation} from '@react-navigation/core';
 
 const styles = StyleSheet.create({
   section: {
@@ -33,12 +34,12 @@ const styles = StyleSheet.create({
 });
 
 export interface AccountsCarroselProps {
-  navigation: any;
   data: object;
 }
 
 export function AccountsCarrosel(props: AccountsCarroselProps) {
-  const {navigation, data} = props;
+  const navigation = useNavigation();
+  const {data} = props;
   const [, setCurrentAccount] = useRecoilState(currentAccountState);
 
   return (

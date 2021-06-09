@@ -2,15 +2,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {useRecoilState} from 'recoil';
 import {
   VictoryChart,
   VictoryLine,
   VictoryPie,
   VictoryTheme,
 } from 'victory-native';
+import {currentAccountState} from '../../atoms';
 import {Box} from '../../common/components';
 import {Body} from '../../common/components/Body';
 import {TimescaleSelector} from '../../common/components/TimescaleSelector';
+import {BinanceService} from '../../services';
 import {AssetsTable} from '../Home/components/AssetsTable';
 
 const styles = StyleSheet.create({
@@ -49,14 +52,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export interface ReportProps {
-  navigation: any;
-  route: any;
-}
+export function Report() {
+  const [account] = useRecoilState(currentAccountState);
 
-export function Report(props: ReportProps) {
-  const {route} = props;
-  const account = route?.params?.account ?? null;
+  const binanceService = new BinanceService(
+    'Kcs1L4KJuak56P0IrWCHGdrIR2RB6YYzDtV6BYkPu1qYIX0mKXeaIw8vbQJGwQQI',
+    'pUfzXxjhoXqj58PPVvJIejIdi3yxjIMufF4IVjbcthy5kQQpF7n8jBUzVLGTM2HQ',
+  );
+
+  React.useEffect(() => {
+    binanceService.getFiatBalance();
+  }, []);
 
   if (!account) {
     return null;

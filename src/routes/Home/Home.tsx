@@ -24,13 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export interface HomeProps {
-  navigation: any;
-}
-
-export function Home(props: HomeProps) {
-  const {navigation} = props;
-
+export function Home() {
   const data = {
     accountProvider: 'binance',
     balances: [
@@ -58,7 +52,7 @@ export function Home(props: HomeProps) {
   return (
     <Body>
       <CurrentBalanceHeader />
-      <AccountsCarrosel navigation={navigation} data={data} />
+      <AccountsCarrosel data={data} />
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>All Assets</Text>
