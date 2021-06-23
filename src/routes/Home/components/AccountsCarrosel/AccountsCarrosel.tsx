@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {AccountBox} from '../AccountBox';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -47,12 +47,18 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Accounts</Text>
         <View style={styles.headerActions}>
-          <FontAwesomeIcon
-            icon={faPlus}
-            size={12}
-            color={'white'}
-            style={{marginLeft: 5}}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('SelectSource');
+            }}>
+            <FontAwesomeIcon
+              icon={faPlus}
+              size={12}
+              color={'white'}
+              style={{marginLeft: 5}}
+            />
+          </TouchableOpacity>
+
           <FontAwesomeIcon icon={faEye} size={12} color={'white'} />
         </View>
       </View>
@@ -63,7 +69,7 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
         showsHorizontalScrollIndicator={false}>
         <AccountBox
           name="Binance Account"
-          icon={<BinanceLogo />}
+          icon={<BinanceLogo height={10} width={10} />}
           amount={'$500,000.00'}
           onClick={() => {
             navigation.navigate('Report');
@@ -72,7 +78,7 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
         />
         <AccountBox
           name="Binance Account"
-          icon={<BinanceLogo />}
+          icon={<BinanceLogo height={10} width={10} />}
           amount={'$500,000.00'}
           onClick={() => {
             console.log('test 123');
@@ -80,10 +86,10 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
         />
         <AccountBox
           name="Binance Account"
-          icon={<BinanceLogo />}
+          icon={<BinanceLogo height={10} width={10} />}
           amount={'$500,000.00'}
           onClick={() => {
-            console.log('test 123');
+            console.log('test-123');
           }}
         />
       </ScrollView>

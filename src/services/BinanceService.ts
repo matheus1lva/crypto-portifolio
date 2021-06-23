@@ -2,15 +2,15 @@ import {Binance} from 'universal-binance-api';
 import {IWalletDailyAccountSnapshotDetailsDataBalance} from 'universal-binance-api/dist/lib/Wallet';
 
 export class BinanceService {
-  binance: Binance.Api;
+  binance: Binance;
   balance: IWalletDailyAccountSnapshotDetailsDataBalance[] = [];
 
   constructor(apiKey: string, secretKey: string) {
-    this.binance = new Binance.Api(apiKey, secretKey, false);
+    this.binance = new Binance(apiKey, secretKey, false);
   }
 
   async getAllCoins() {
-    const result = await this.binance.walletDailyAccountSnapshot({
+    const result = await this.binance.wallet.walletDailyAccountSnapshot({
       type: 'SPOT',
     });
 
@@ -19,7 +19,7 @@ export class BinanceService {
   }
 
   async getAssetFiatPrice(asset: string) {
-    return await this.binance.marketCurrentAveragePrice({
+    return await this.binance.market.marketCurrentAveragePrice({
       symbol: `${asset}USDT`,
     });
   }
@@ -33,4 +33,9 @@ export class BinanceService {
     }
     return total;
   }
+
+  // async accountInfo() {
+  //   const balance = await this.binance.wallet.walletAccountInfo();
+  //   return balance;
+  // }
 }

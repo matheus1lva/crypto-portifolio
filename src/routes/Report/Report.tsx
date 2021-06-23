@@ -1,5 +1,4 @@
-/* eslint-disable no-sparse-arrays */
-/* eslint-disable react-native/no-inline-styles */
+// import {API_URL, API_TOKEN} from 'react-native-dotenv';
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {useRecoilState} from 'recoil';
@@ -13,7 +12,7 @@ import {currentAccountState} from '../../atoms';
 import {Box} from '../../common/components';
 import {Body} from '../../common/components/Body';
 import {TimescaleSelector} from '../../common/components/TimescaleSelector';
-import {BinanceService} from '../../services';
+// import {BinanceService} from '../../services';
 import {AssetsTable} from '../Home/components/AssetsTable';
 
 const styles = StyleSheet.create({
@@ -55,14 +54,14 @@ const styles = StyleSheet.create({
 export function Report() {
   const [account] = useRecoilState(currentAccountState);
 
-  const binanceService = new BinanceService(
-    'Kcs1L4KJuak56P0IrWCHGdrIR2RB6YYzDtV6BYkPu1qYIX0mKXeaIw8vbQJGwQQI',
-    'pUfzXxjhoXqj58PPVvJIejIdi3yxjIMufF4IVjbcthy5kQQpF7n8jBUzVLGTM2HQ',
-  );
+  // const binanceService = new BinanceService(
+  //   process.env.,
+  //   '',
+  // );
 
-  React.useEffect(() => {
-    binanceService.getFiatBalance();
-  }, []);
+  // React.useEffect(() => {
+  //   binanceService.accountInfo();
+  // }, []);
 
   if (!account) {
     return null;

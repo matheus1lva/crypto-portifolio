@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import {Home, Report} from './routes';
+import {AddAccount, Home, Report} from './routes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useRecoilState} from 'recoil';
 import {currentAccountState} from './atoms';
+import SelectAccountSource from './routes/SelectAccountSource/SelectAccountSource';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -38,6 +39,20 @@ const App = () => {
                 headerTintColor: '#fff',
                 // @ts-ignore
                 title: currentAccount.accountProvider,
+              }}
+            />
+            <Stack.Screen
+              name="SelectSource"
+              component={SelectAccountSource}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AddAccount"
+              component={AddAccount}
+              options={{
+                headerShown: false,
               }}
             />
           </Stack.Navigator>
