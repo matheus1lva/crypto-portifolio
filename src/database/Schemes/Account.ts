@@ -1,7 +1,7 @@
 export const AccountScheme = {
   name: 'Account',
   properties: {
-    _id: 'int',
+    _id: 'string',
     apiKey: 'string',
     secretKey: 'string',
     provider: 'string',
@@ -10,7 +10,7 @@ export const AccountScheme = {
 };
 
 export interface Account {
-  _id: number;
+  _id: string;
   apiKey: string;
   secretKey: string;
   provider: string;

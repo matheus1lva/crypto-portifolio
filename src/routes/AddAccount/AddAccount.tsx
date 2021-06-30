@@ -2,6 +2,7 @@ import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Body} from '../../common/components';
 import {BINANCE} from '../../common/constants';
+import {AccountService} from '../../services/AccountsService';
 import BinanceAccount from './BinanceAccount';
 
 export function AddAccount() {
@@ -10,13 +11,13 @@ export function AddAccount() {
   // @ts-ignore it exists!
   const sourceName = router.params?.sourceName;
 
-  const sourcesMap: Record<string, React.ReactNode> = {
-    [BINANCE]: <BinanceAccount />,
-  };
+  const accountService = new AccountService();
 
-  console.log({
-    binance: sourcesMap.binance,
-  });
+  const sourcesMap: Record<string, React.ReactNode> = {
+    [BINANCE]: (
+      <BinanceAccount handleAccountLink={accountService.createAccount} />
+    ),
+  };
 
   if (!sourceName) {
     return null;

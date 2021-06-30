@@ -19,16 +19,25 @@ const SourceTitle = styled(Text)`
   font-size: 25px;
   margin-left: 5px;
 `;
+export interface BinanceAccountProps {
+  handleAccountLink: (
+    apiKey: string,
+    secretKey: string,
+    provider: string,
+  ) => Promise<void>;
+}
 
-export default function BinanceAccount() {
+export default function BinanceAccount(props: BinanceAccountProps) {
+  const {handleAccountLink} = props;
+
   const formik = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
+      apiKey: '',
+      secretKey: '',
     },
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async values => {
+      const {apiKey, secretKey} = values;
+      await handleAccountLink(apiKey, secretKey, 'binance');
     },
   });
 
@@ -47,7 +56,11 @@ export default function BinanceAccount() {
         onChangeText={formik.handleChange('secretKey')}
       />
 
-      <Button label={'Link exchange'} style={{marginTop: 10}} />
+      <Button
+        label={'Link exchange'}
+        style={{marginTop: 10}}
+        onPress={formik.handleSubmit}
+      />
     </Box>
   );
 }

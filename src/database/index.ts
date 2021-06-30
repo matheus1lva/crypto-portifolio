@@ -1,10 +1,9 @@
 import Realm from 'realm';
 import {AccountScheme} from './Schemes';
 
-export async function openConnection() {
-  const realm = await Realm.open({
-    path: './database',
+export function getRealm() {
+  return Realm.open({
     schema: [AccountScheme],
+    deleteRealmIfMigrationNeeded: true,
   });
-  return realm;
 }
