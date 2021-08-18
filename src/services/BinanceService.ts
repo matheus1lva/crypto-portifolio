@@ -61,7 +61,7 @@ export class BinanceService {
     return total;
   }
 
-  async getAll() {
+  async getDCAPrices() {
     await this.getAllCoins();
     const requests = this.balance.map(async coin => {
       const {asset} = coin;

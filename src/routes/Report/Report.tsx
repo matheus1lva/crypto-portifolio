@@ -62,7 +62,7 @@ export function Report() {
   // binanceService.getAllCoins();
 
   React.useEffect(() => {
-    binanceService.getAll();
+    binanceService.getDCAPrices();
   }, []);
 
   if (!account) {
