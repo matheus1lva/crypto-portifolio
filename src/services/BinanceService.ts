@@ -55,6 +55,7 @@ export class BinanceService {
     let total = 0;
     for (const coin of this.balance) {
       const {asset, free} = coin;
+      // TOdo: add base currency as configurable
       const result = await this.getAssetFiatPrice(asset);
       total += parseFloat(free) * parseFloat(result.price);
     }
@@ -100,5 +101,20 @@ export class BinanceService {
 
     const results = await Promise.all(requests);
     return results;
+  }
+
+  async getTotalBalances() {
+    await this.getAllCoins();
+    const requests = this.balance.map(async coin => {
+      const {asset, free} = coin;
+      const result = await this.getAssetFiatPrice(asset);
+      const price = parseFloat(result.price);
+      const qty = parseFloat(free);
+      return qty * price;
+    });
+    const results = await Promise.all(requests);
+    console.log(results);
+
+    return results.reduce((acc, cur) => acc + cur, 0).toFixed(2);
   }
 }
