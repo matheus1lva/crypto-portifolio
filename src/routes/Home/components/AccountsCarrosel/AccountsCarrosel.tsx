@@ -40,6 +40,7 @@ export interface AccountsCarroselProps {
 export function AccountsCarrosel(props: AccountsCarroselProps) {
   const navigation = useNavigation();
   const {accounts} = props;
+  console.log(accounts);
   const [, setCurrentAccount] = useRecoilState(currentAccountState);
 
   return (
@@ -67,7 +68,7 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
         style={styles.accountsList}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
-        {/* {Object.entries(accounts).map(([, accountService]) => {
+        {Object.entries(accounts).map(([, accountService]) => {
           const Logo = logos[accountService.provider];
           return (
             <AccountBox
@@ -80,7 +81,7 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
               }}
             />
           );
-        })} */}
+        })}
 
         <AccountBox
           name="Binance Account"

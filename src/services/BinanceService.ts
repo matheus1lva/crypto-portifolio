@@ -1,5 +1,6 @@
 import {Binance} from 'universal-binance-api';
 import {IWalletDailyAccountSnapshotDetailsDataBalance} from 'universal-binance-api/dist/lib/Wallet';
+import {Service} from './Service';
 
 interface AssetBought {
   price: string;
@@ -23,11 +24,11 @@ function getMedian(assets: Array<AssetBought> | null) {
   return isNaN(mean) ? 0 : mean;
 }
 
-export class BinanceService {
+export class BinanceService implements Service {
   binance: Binance;
   balance: IWalletDailyAccountSnapshotDetailsDataBalance[] = [];
 
-  providerName = 'binance';
+  provider = 'binance';
 
   constructor(apiKey: string, secretKey: string) {
     this.binance = new Binance(apiKey, secretKey, false);
@@ -113,8 +114,7 @@ export class BinanceService {
       return qty * price;
     });
     const results = await Promise.all(requests);
-    console.log(results);
 
-    return results.reduce((acc, cur) => acc + cur, 0).toFixed(2);
+    return results.reduce((acc, cur) => acc + cur, 0);
   }
 }

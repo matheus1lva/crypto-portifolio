@@ -53,17 +53,7 @@ const styles = StyleSheet.create({
 
 export function Report() {
   const [account] = useRecoilState(currentAccountState);
-
-  const binanceService = new BinanceService(
-    'Kcs1L4KJuak56P0IrWCHGdrIR2RB6YYzDtV6BYkPu1qYIX0mKXeaIw8vbQJGwQQI',
-    'pUfzXxjhoXqj58PPVvJIejIdi3yxjIMufF4IVjbcthy5kQQpF7n8jBUzVLGTM2HQ',
-  );
-
-  // binanceService.getAllCoins();
-
-  React.useEffect(() => {
-    binanceService.getTotalBalances();
-  }, []);
+  console.log(account);
 
   if (!account) {
     return null;
