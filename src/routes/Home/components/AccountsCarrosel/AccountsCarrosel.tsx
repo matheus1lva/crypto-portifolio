@@ -4,7 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {AccountBox} from '../AccountBox';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus, faEye} from '@fortawesome/free-solid-svg-icons';
-import {BinanceLogo} from '../../../../common/components/Logos';
+import {BinanceLogo, logos} from '../../../../common/components/Logos';
 import {useRecoilState} from 'recoil';
 import {currentAccountState} from '../../../../atoms';
 import {useNavigation} from '@react-navigation/core';
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
 });
 
 export interface AccountsCarroselProps {
-  data: object;
+  accounts: Record<string, any>;
 }
 
 export function AccountsCarrosel(props: AccountsCarroselProps) {
   const navigation = useNavigation();
-  const {data} = props;
+  const {accounts} = props;
   const [, setCurrentAccount] = useRecoilState(currentAccountState);
 
   return (
@@ -67,21 +67,27 @@ export function AccountsCarrosel(props: AccountsCarroselProps) {
         style={styles.accountsList}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
+        {/* {Object.entries(accounts).map(([, accountService]) => {
+          const Logo = logos[accountService.provider];
+          return (
+            <AccountBox
+              name={accountService.provider}
+              icon={<Logo height={10} width={10} />}
+              amount={'$500,000.00'}
+              onClick={() => {
+                navigation.navigate('Report');
+                setCurrentAccount(accountService);
+              }}
+            />
+          );
+        })} */}
+
         <AccountBox
           name="Binance Account"
           icon={<BinanceLogo height={10} width={10} />}
           amount={'$500,000.00'}
           onClick={() => {
             navigation.navigate('Report');
-            setCurrentAccount(data);
-          }}
-        />
-        <AccountBox
-          name="Binance Account"
-          icon={<BinanceLogo height={10} width={10} />}
-          amount={'$500,000.00'}
-          onClick={() => {
-            console.log('test 123');
           }}
         />
         <AccountBox

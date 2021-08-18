@@ -7,6 +7,12 @@ import {TimescaleSelector} from '../../common/components/TimescaleSelector';
 import {AssetsTable} from './components/AssetsTable';
 import {Body} from '../../common/components/Body';
 import {AccountsCarrosel} from './components/AccountsCarrosel';
+import {AccountService} from '../../services/AccountsService';
+import {BinanceService} from '../../services';
+import {Account} from '../../database/Schemes';
+import {Services} from 'realm';
+import {accountsAtom} from '../../atoms';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
 const styles = StyleSheet.create({
   pnlPerTime: {
@@ -25,6 +31,33 @@ const styles = StyleSheet.create({
 });
 
 export function Home() {
+  const accountService = new AccountService();
+  const [accounts, setAccounts] = useRecoilState(accountsAtom);
+
+  const getAccountsAndSave = async () => {
+    const services = {
+      binance: BinanceService,
+    };
+
+    const accountsServices: Record<string, any> = {};
+
+    (await accountService.getAllAccounts()).forEach((account: Account) => {
+      const provider = account.provider as keyof typeof services;
+
+      accountsServices[account._id] = new services[provider](
+        account.apiKey,
+        account.secretKey,
+      );
+    });
+
+    // @ts-ignore
+    setAccounts(accountsServices);
+  };
+
+  React.useEffect(() => {
+    getAccountsAndSave();
+  }, []);
+
   const data = {
     accountProvider: 'binance',
     balances: [
@@ -52,7 +85,7 @@ export function Home() {
   return (
     <Body>
       <CurrentBalanceHeader />
-      <AccountsCarrosel data={data} />
+      <AccountsCarrosel accounts={accounts} />
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>All Assets</Text>

@@ -28,6 +28,7 @@ export class AccountService {
 
   async getAllAccounts() {
     const realm = await getRealm();
-    return realm.objects('Account');
+    const objects = realm.objects('Account');
+    return objects.toJSON();
   }
 }

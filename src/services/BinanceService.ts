@@ -1,9 +1,33 @@
 import {Binance} from 'universal-binance-api';
 import {IWalletDailyAccountSnapshotDetailsDataBalance} from 'universal-binance-api/dist/lib/Wallet';
 
+interface AssetBought {
+  price: string;
+  qty: string;
+}
+
+function getMedian(assets: Array<AssetBought> | null) {
+  if (!assets) {
+    return 0;
+  }
+
+  let qtd = 0;
+  let price = 0;
+  assets?.forEach(asset => {
+    qtd += parseFloat(asset.qty);
+    price += parseFloat(asset.price);
+  });
+
+  const mean = price / qtd;
+
+  return isNaN(mean) ? 0 : mean;
+}
+
 export class BinanceService {
   binance: Binance;
   balance: IWalletDailyAccountSnapshotDetailsDataBalance[] = [];
+
+  providerName = 'binance';
 
   constructor(apiKey: string, secretKey: string) {
     this.binance = new Binance(apiKey, secretKey, false);
@@ -13,9 +37,12 @@ export class BinanceService {
     const result = await this.binance.wallet.walletDailyAccountSnapshot({
       type: 'SPOT',
     });
-
     this.balance =
-      result?.snapshotVos[result.snapshotVos.length - 1]?.data?.balances || [];
+      result?.snapshotVos[result.snapshotVos.length - 1]?.data?.balances.filter(
+        coin => {
+          return coin.free !== '0';
+        },
+      ) || [];
   }
 
   async getAssetFiatPrice(asset: string) {
@@ -34,8 +61,44 @@ export class BinanceService {
     return total;
   }
 
-  // async accountInfo() {
-  //   const balance = await this.binance.wallet.walletAccountInfo();
-  //   return balance;
-  // }
+  async getAll() {
+    await this.getAllCoins();
+    const requests = this.balance.map(async coin => {
+      const {asset} = coin;
+      let usdt = null;
+      let bnb = null;
+      let eth = null;
+      let btc = null;
+
+      // TODO: Iterate or abstract a way to get the price of the asset on all pairs
+      try {
+        usdt = await this.binance.spot.spotAccountTradeList({
+          symbol: `${asset}USDT`,
+        });
+
+        bnb = await this.binance.spot.spotAccountTradeList({
+          symbol: `${asset}BNB`,
+        });
+
+        eth = await this.binance.spot.spotAccountTradeList({
+          symbol: `${asset}ETH`,
+        });
+
+        btc = await this.binance.spot.spotAccountTradeList({
+          symbol: `${asset}BTC`,
+        });
+      } catch (err) {
+        // err does not matter
+      }
+      const dca =
+        getMedian(usdt) + getMedian(eth) + getMedian(btc) + getMedian(bnb) / 4;
+      return {
+        ...coin,
+        dca: dca === 0 ? parseFloat(coin.free) : dca,
+      };
+    });
+
+    const results = await Promise.all(requests);
+    return results;
+  }
 }
